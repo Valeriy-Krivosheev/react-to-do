@@ -1,19 +1,38 @@
+import { Component } from 'react'
 import './form.css'
-const Form = ({ addItem}) => {
-  const addPost = (e) => {
+class Form extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value:''
+    }
+  }
+  addPost = (e) => {
     e.preventDefault()
-    const value = e.target.post.value
-    addItem(value)
+    this.props.addItem(this.state.value)
+    this.setState({
+      value:''
+    })
+  }
+  onValueChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   }
 
-  return (
-    <div className="form-inner">
-      <form className="wish-form" onSubmit={addPost}>
-        <input className="wish-input" type="text" name='post' />
-        <button className="wish-button">Post it</button>
-      </form>
-    </div>
-  )
+
+  render() {
+    const{value} = this.state
+    return (
+      <div className="form-inner">
+        <form className="wish-form" onSubmit={this.addPost}>
+          <input className="wish-input" type="text" name='value' value={value} onChange={this.onValueChange}/>
+          <button className="wish-button">Post it</button>
+        </form>
+      </div>
+    )
+  }
+
 }
 
 export default Form

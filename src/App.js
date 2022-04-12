@@ -10,7 +10,7 @@ class App extends Component {
       arr: [
         { name: 'Сделать to do list на React', id: 1 },
         { name: 'Кликнуть по этой кнопке', id: 2 },
-        { name: 'Убедиться, в изменении state', id: 3 },
+        { name: 'Убедиться в изменении state', id: 3 },
       ],
 
     }
@@ -22,25 +22,33 @@ class App extends Component {
     })
   }
   addItem = (value) => {
-    this.setState({
-      arr: [
-        ...this.state.arr,
-        { name: value, id: Date.now() }
-      ]
+    if (value.trim()) {
+      this.setState({
+        arr: [
+          ...this.state.arr,
+          { name: value, id: Date.now() }
+        ]
+        
+      })
+    }
 
-    })
   }
 
   render() {
-    console.log(this.state.arr);
     const length = this.state.arr.length
     return (
       <div className="App">
-        <div className="container">
-          <Title length={length} />
-          <Form addItem={this.addItem} />
-          <List listDeal={this.state.arr} delelete={this.onItemClick} />
+        <div className="main">
+          <section className="wish">
+            <div className="container">
+              <Title length={length} />
+              <Form addItem={this.addItem} />
+              <List listDeal={this.state.arr} delelete={this.onItemClick} />
+            </div>
+          </section>
         </div>
+
+
       </div>
     )
   }
